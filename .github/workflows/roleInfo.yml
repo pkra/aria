@@ -1,11 +1,6 @@
 name: Node.js CI to build roleInfo.js
 
-on:
-  push:
-    branches: [main]
-    paths:
-    - index.html
-  workflow_dispatch:
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest

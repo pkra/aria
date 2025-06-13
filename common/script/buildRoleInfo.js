@@ -6,10 +6,10 @@ const { document } = parseHTML(
 );
 
 // mock functions for aria.js
-updateReferences = () => {};
+let updateReferences = () => {};
 document.URL = "";
 
-const script = fs.readFileSync("./script/aria.js").toString();
+const script = fs.readFileSync("./common/script/aria.js").toString();
 
 
 const scriptWithoutRespecUI = script.substring(0, script.indexOf("require(")); // TODO: HACK remove everything past "require(" (NOTE: if we went only with this SSG approach, we could remove that end of aria.js and this hack)

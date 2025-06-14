@@ -1,22 +1,26 @@
-name: Node.js CI to build roleInfo.js
+name: roleInfo
 
 on:
-  push:
-    branches: [main]
-    paths:
-    - index.html
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  build:
+  roleInfo:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: "latest"
       - run: npm i linkedom
-      - run: node ./common/script/buildRoleInfo.js
+      - run: node ./common/script/buildRoleInfo.js > ./common/script/roleInfo.js
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - run: git add ./common/script/roleInfo.js
-      - run: git commit -m'chore: update roleInfo.js'
+      - run: |
+         git commit -m'chore: update roleInfo.js'
       - run: git push
